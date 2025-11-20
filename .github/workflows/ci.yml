@@ -38,6 +38,8 @@ jobs:
         mypy src/ --ignore-missing-imports --explicit-package-bases
     
     - name: Run unit tests
+      env:
+        PYTHONPATH: ${{ github.workspace }}
       run: |
         pytest tests/ -v --cov=src --cov-report=xml
     
