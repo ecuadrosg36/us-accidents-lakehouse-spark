@@ -1,5 +1,5 @@
-# Use official Spark base image with Python
-FROM bitnami/spark:3.5.0
+# Use Python base image (PySpark will be installed from requirements.txt)
+FROM python:3.10-slim
 
 # Set working directory
 WORKDIR /app
