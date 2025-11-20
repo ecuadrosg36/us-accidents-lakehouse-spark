@@ -4,7 +4,7 @@ Unit tests for Gold layer features.
 
 import pytest
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType
+from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType, DoubleType
 from datetime import datetime
 from src.utils.feature_engineering import FeatureEngineer
 
@@ -50,9 +50,9 @@ def test_weather_features(spark):
     ]
     schema = StructType(
         [
-            StructField("Temperature(F)", IntegerType(), True),
-            StructField("Visibility(mi)", IntegerType(), True),
-            StructField("Wind_Speed(mph)", IntegerType(), True),
+            StructField("Temperature(F)", DoubleType(), True),
+            StructField("Visibility(mi)", DoubleType(), True),
+            StructField("Wind_Speed(mph)", DoubleType(), True),
         ]
     )
 

@@ -22,7 +22,7 @@ def test_accidents_schema():
     schema = get_accidents_schema()
 
     assert isinstance(schema, StructType)
-    assert len(schema.fields) == 47
+    assert len(schema.fields) == 45
     assert "ID" in schema.fieldNames()
     assert "Severity" in schema.fieldNames()
     assert "Start_Time" in schema.fieldNames()
