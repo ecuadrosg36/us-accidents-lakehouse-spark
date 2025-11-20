@@ -4,6 +4,7 @@ Spark Optimization Utilities.
 Helper functions for broadcast joins, repartitioning, and performance tuning.
 """
 
+from typing import Optional
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import broadcast, col
 from src.utils.logger import setup_logger
