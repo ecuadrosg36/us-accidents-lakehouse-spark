@@ -4,7 +4,13 @@ Unit tests for Gold layer features.
 
 import pytest
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, IntegerType, TimestampType, DoubleType
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    IntegerType,
+    TimestampType,
+    DoubleType,
+)
 from datetime import datetime
 from src.utils.feature_engineering import FeatureEngineer
 
