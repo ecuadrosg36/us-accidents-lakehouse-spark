@@ -1,5 +1,5 @@
-# Use official Spark base image
-FROM apache/spark-py:3.5.0
+# Use official Spark base image with Python
+FROM bitnami/spark:3.5.0
 
 # Set working directory
 WORKDIR /app
