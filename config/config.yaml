@@ -1,0 +1,21 @@
+# Paths
+paths:
+  raw_data: "data/raw"
+  bronze: "data/bronze"
+  silver: "data/silver"
+  gold: "data/gold"
+  checkpoint: "checkpoints"
+  models: "models"
+
+# Spark Configuration
+spark:
+  app_name: "US-Accidents-Lakehouse"
+  shuffle_partitions: 200
+  enable_aqe: true
+
+# Data Settings
+data:
+  target_file_size_mb: 128
+  partition_columns:
+    - "year"
+    - "month"
