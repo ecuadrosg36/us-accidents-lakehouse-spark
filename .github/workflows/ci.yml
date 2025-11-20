@@ -62,4 +62,4 @@ jobs:
     
     - name: Test Docker image
       run: |
-        docker run --rm us-accidents-spark:latest --version
+        docker run --rm us-accidents-spark:latest python --version
