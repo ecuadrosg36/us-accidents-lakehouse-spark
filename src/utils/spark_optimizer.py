@@ -61,7 +61,7 @@ class SparkOptimizer:
         return df.repartition(num_partitions)
 
     @staticmethod
-    def tune_shuffle_partitions(spark, num_partitions: int = None):
+    def tune_shuffle_partitions(spark, num_partitions: Optional[int] = None):
         """
         Dynamically tune shuffle partitions.
 

@@ -2,6 +2,7 @@
 Spark Session Builder with optimizations.
 """
 
+from typing import Optional
 from pyspark.sql import SparkSession
 from src.config.config_loader import get_config
 from src.utils.logger import setup_logger
@@ -10,7 +11,7 @@ from src.utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 
-def create_spark_session(app_name: str = None) -> SparkSession:
+def create_spark_session(app_name: Optional[str] = None) -> SparkSession:
     """
     Create optimized Spark session.
 

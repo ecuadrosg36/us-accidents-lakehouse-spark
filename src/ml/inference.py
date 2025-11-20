@@ -4,6 +4,7 @@ ML Inference Pipeline.
 Load trained model and make predictions.
 """
 
+from typing import Optional
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.ml import PipelineModel
 from src.config.config_loader import get_config
@@ -13,7 +14,7 @@ from src.utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 
-def predict_severity(spark: SparkSession, input_df: DataFrame = None) -> DataFrame:
+def predict_severity(spark: SparkSession, input_df: Optional[DataFrame] = None) -> DataFrame:
     """
     Make severity predictions on new data.
 
