@@ -14,7 +14,9 @@ from src.utils.logger import setup_logger
 logger = setup_logger(__name__)
 
 
-def predict_severity(spark: SparkSession, input_df: Optional[DataFrame] = None) -> DataFrame:
+def predict_severity(
+    spark: SparkSession, input_df: Optional[DataFrame] = None
+) -> DataFrame:
     """
     Make severity predictions on new data.
 
