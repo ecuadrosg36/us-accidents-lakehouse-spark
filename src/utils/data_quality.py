@@ -6,7 +6,6 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, when, trim, upper
 from src.utils.logger import setup_logger
 
-
 logger = setup_logger(__name__)
 
 

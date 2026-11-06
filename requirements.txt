@@ -14,7 +14,7 @@ pytest-spark>=0.6.0
 chispa>=0.9.0
 
 # Linting
-black>=23.11.0
+black==26.10.1
 flake8>=6.1.0
 mypy>=1.7.0
 

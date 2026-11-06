@@ -1,6 +1,6 @@
 # US Accidents Spark Lakehouse 🚀
 
-A production-ready **Apache Spark Lakehouse** platform for processing and analyzing US traffic accident data using the **Medallion Architecture** (Bronze → Silver → Gold).
+An **Apache Spark** lakehouse for processing and analyzing US traffic accident data using the **Medallion Architecture** (Bronze → Silver → Gold).
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![Spark](https://img.shields.io/badge/Spark-3.5%2B-orange)
@@ -9,13 +9,21 @@ A production-ready **Apache Spark Lakehouse** platform for processing and analyz
 
 ## 🌟 Features
 
-- **Medallion Architecture**: Bronze (raw) → Silver (cleaned) → Gold (ML-ready)
-- **Spark Optimization**: AQE, broadcast joins, dynamic partitioning
-- **ML Pipeline**: RandomForest model for severity prediction
-- **Streaming**: Structured Streaming with checkpointing & watermarking
-- **Orchestration**: Airflow DAG with TaskFlow API
-- **Infrastructure as Code**: Terraform for GCP/Dataproc
-- **CI/CD**: GitHub Actions with testing & Docker builds
+### Working today
+
+- **Medallion layers**: Bronze (raw) → Silver (cleaned) → Gold (ML-ready), stored as Parquet and partitioned by year and month
+- **Spark settings**: adaptive query execution (AQE) with partition coalescing
+- **ML**: Spark ML RandomForest that predicts severity and saves the model
+- **Orchestration**: a daily Airflow DAG (TaskFlow API): Bronze → Silver → Gold → training, which only runs on Mondays
+- **CI**: GitHub Actions runs Black, Flake8, mypy and pytest, then builds the Docker image
+
+### Written, not wired in yet
+
+- **Streaming**: `src/jobs/stream_ingestion.py` reads CSV files with Structured Streaming (watermark and checkpoint), but the DAG doesn't run it
+- **Inference**: `src/ml/inference.py` prints 10 predictions and doesn't save them
+- **Broadcast joins**: `SparkOptimizer.apply_broadcast_join` exists but no job calls it
+- **Terraform**: `infra/terraform/` only declares two variables; `main.tf` has no resources yet
+- **Placeholders**: `src/main_pipeline.py`, `orchestration/airflow/dags/lakeshield_dag.py` and `scripts/download_data.py` only print a line
 
 ## 🏗️ Architecture
 
@@ -31,6 +39,8 @@ Gold Layer (ML features, optimized)
 ML Model (RandomForest classifier)
 ```
 
+All layers are Parquet files on disk (not Delta tables).
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -42,7 +52,7 @@ ML Model (RandomForest classifier)
 
 ```bash
 # Clone repository
-git clone <repo-url>
+git clone https://github.com/ecuadrosg36/us-accidents-lakehouse-spark.git
 cd us-accidents-lakehouse-spark
 
 # Install dependencies
@@ -74,7 +84,7 @@ python -m src.jobs.gold_features
 python -m src.ml.train_model
 ```
 
-**5. ML Inference**
+**5. ML Inference** (prints sample predictions)
 ```bash
 python -m src.ml.inference
 ```
@@ -90,9 +100,9 @@ python -m src.ml.inference
 │   ├── ml/               # ML training & inference
 │   └── utils/            # Spark session, logging, optimization
 ├── orchestration/
-│   └── airflow/dags/     # Airflow DAGs
+│   └── airflow/dags/     # Airflow DAG (lakehouse_pipeline.py)
 ├── infra/
-│   └── terraform/        # Infrastructure as Code
+│   └── terraform/        # Variables only, no resources yet
 ├── tests/                # Unit tests
 ├── config/               # YAML configs
 └── Dockerfile            # Docker image
@@ -108,20 +118,11 @@ docker build -t us-accidents-spark:latest .
 docker run --rm -v $(pwd)/data:/app/data us-accidents-spark:latest
 ```
 
+The image is `python:3.10-slim` without Java, so Spark jobs need a Java runtime added before they run in it. CI only checks that the image builds and starts Python.
+
 ## ☁️ Cloud Deployment (GCP)
 
-```bash
-cd infra/terraform
-
-# Initialize
-terraform init
-
-# Plan
-terraform plan -var="project_id=YOUR_PROJECT_ID"
-
-# Apply
-terraform apply -var="project_id=YOUR_PROJECT_ID"
-```
+Not built yet. `infra/terraform/` has the `project_id` and `region` variables but no Dataproc or storage resources.
 
 ## 🧪 Testing
 

@@ -9,7 +9,6 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import broadcast, col
 from src.utils.logger import setup_logger
 
-
 logger = setup_logger(__name__)
 
 

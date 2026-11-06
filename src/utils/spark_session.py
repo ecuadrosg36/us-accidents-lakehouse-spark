@@ -7,7 +7,6 @@ from pyspark.sql import SparkSession
 from src.config.config_loader import get_config
 from src.utils.logger import setup_logger
 
-
 logger = setup_logger(__name__)
 
 
