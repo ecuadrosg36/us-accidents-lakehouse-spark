@@ -8,7 +8,6 @@ from datetime import datetime, timedelta
 from airflow.decorators import dag, task
 from airflow.operators import python
 
-
 # Default arguments
 default_args = {
     "owner": "data-engineering",
